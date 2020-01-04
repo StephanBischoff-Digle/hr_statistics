@@ -2,6 +2,8 @@ use std::error::Error;
 use std::fmt;
 use std::io;
 
+/// Fuses IO, Parse and Logic errors into one such that I can collect them and return them neatly
+/// from main, if one occures.
 #[derive(Debug)]
 pub enum ProgramError {
     Io(io::Error),

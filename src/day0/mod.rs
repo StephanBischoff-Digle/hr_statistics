@@ -2,11 +2,29 @@ use super::common::ProgramError;
 use std::collections::HashMap;
 use std::io;
 
-fn mean(data: &Vec<i32>) -> f32 {
+/// Cacluclates the mean value of the values given by the `data` vector.
+///
+/// # Example
+///
+/// ```
+/// assert_eq!(mean(&vec![1, 2, 3]), 2.0);
+/// ```
+pub fn mean(data: &Vec<i32>) -> f32 {
     data.iter().fold(0, |acc, x| acc + x) as f32 / data.len() as f32
 }
 
-fn weighted_mean(data: &Vec<i32>, weights: &Vec<i32>) -> f32 {
+/// Calculates the weighted mean of the values given by the `data` vector. The `weights` are
+/// applied in order.
+///
+/// # Example
+///
+/// ```
+/// let data = vec![1, 2, 4];
+/// let weights = vec![10, 5, 1];
+///
+/// assert_eq!(weighted_mean(&data, &weights), 1.5);
+/// ```
+pub fn weighted_mean(data: &Vec<i32>, weights: &Vec<i32>) -> f32 {
     let upper = data
         .iter()
         .zip(weights.iter())
@@ -16,7 +34,15 @@ fn weighted_mean(data: &Vec<i32>, weights: &Vec<i32>) -> f32 {
     upper / lower
 }
 
-fn median(data: &Vec<i32>) -> f32 {
+/// Calculates the median of the values given by the `data` vector.
+///
+/// # Example
+///
+/// ```
+/// assert_eq!(median(&vec![1, 2, 3]), 2.0);
+/// assert_eq!(medain(&vec![1, 3]), 2.0);
+/// ```
+pub fn median(data: &Vec<i32>) -> f32 {
     let mut copy = data.clone();
     copy.sort();
     match copy.len() % 2 {
@@ -26,7 +52,15 @@ fn median(data: &Vec<i32>) -> f32 {
     }
 }
 
-fn mode(data: &Vec<i32>) -> i32 {
+/// Calculates the mode of the values given by the `data` vector.
+///
+/// # Example
+///
+/// ```
+/// assert_eq!(mode(&vec![1, 1, 2, 3]), 1);
+/// assert_eq!(mode(&vec![1, 2, 2, 3, 3]), 2);
+/// ```
+pub fn mode(data: &Vec<i32>) -> i32 {
     let mut map: HashMap<i32, i32> = HashMap::new();
 
     for i in data.iter() {
@@ -43,6 +77,7 @@ fn mode(data: &Vec<i32>) -> i32 {
     *filtered[0]
 }
 
+/// Runns all the Day0 Challenges
 pub fn run() -> Result<(), ProgramError> {
     println!("------------------------------");
     println!("Day 0");
