@@ -3,6 +3,13 @@ use super::day0::median;
 
 use std::io;
 
+/// Calculates the quartiles of the values given by the `data` vector.
+///
+/// # Example
+///
+/// ```
+/// assert_eq!(quartiles(&vec![3, 7, 8, 5, 12, 14, 21, 13, 18]), (6.0, 12.0, 16.0));
+/// ```
 pub fn quartiles(data: &Vec<i32>) -> (f32, f32, f32) {
     let q2 = median(data);
     let lower: Vec<i32> = data.iter().filter(|&&x| x < q2 as i32).cloned().collect();
@@ -38,7 +45,7 @@ pub fn run() -> Result<(), ProgramError> {
     }
 
     let (q1, q2, q3) = quartiles(&data);
-    println!("{}\n{}\n{}", q1, q2, q3);
+    println!("Q1: {}\nQ2: {}\nQ3: {}", q1, q2, q3);
 
     Ok(())
 }
