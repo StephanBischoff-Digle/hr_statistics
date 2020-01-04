@@ -4,6 +4,7 @@ use std::collections::HashMap;
 
 mod common;
 mod day0;
+mod day1;
 
 fn main() -> Result<(), common::ProgramError> {
     let matches = App::new("Hackerrank 10 days of Statistics")
@@ -19,10 +20,11 @@ fn main() -> Result<(), common::ProgramError> {
         )
         .get_matches();
 
-    let lookup = [("0", day0::run)]
+    type FnRun = fn() -> Result<(), common::ProgramError>;
+    let lookup: HashMap<&str, FnRun> = [("0", day0::run as FnRun), ("1", day1::run as FnRun)]
         .iter()
         .cloned()
-        .collect::<HashMap<_, _>>();
+        .collect();
 
     if let Some(day) = matches.value_of("day") {
         match lookup.get(&day) {
