@@ -1,5 +1,5 @@
 use super::common::ProgramError;
-use super::day0::median;
+use super::day0::{mean, median};
 
 use std::io;
 use std::iter;
@@ -53,6 +53,24 @@ pub fn interquartile_range(data: &Vec<i32>, frequencys: &Vec<i32>) -> f32 {
     q3 - q1
 }
 
+/// Calculates the standard deviation of the values given by the `data` vector.
+///
+/// # Example
+///
+/// ```
+/// assert_eq!(standard_deviation(&vec![10, 40, 30, 50, 20]), 14.142136);
+/// ```
+pub fn standard_deviation(data: &Vec<i32>) -> f32 {
+    let m = mean(data);
+
+    let diviation = data
+        .iter()
+        .fold(0.0, |acc, x| acc + (*x as f32 - m).powi(2))
+        / data.len() as f32;
+
+    diviation.sqrt()
+}
+
 /// Runns all the Day1 Challenges
 pub fn run() -> Result<(), ProgramError> {
     println!("------------------------------");
@@ -103,6 +121,8 @@ pub fn run() -> Result<(), ProgramError> {
         "Interquartile range: {:.1}",
         interquartile_range(&data, &nums)
     );
+    println!("------");
+    println!("Standard deviation: {}", standard_deviation(&data));
 
     Ok(())
 }
